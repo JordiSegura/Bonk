@@ -1,9 +1,7 @@
-package com.ncs.plataformes;
+package com.ncs.BonkJordi;
 
 public class Input {
     private boolean left, right, jump, pause;
-
-    // FAST SETTERS
 
     public void goLeft() { left = true; right = false; }
     public void goRight() { left = false; right = true; }
@@ -15,8 +13,6 @@ public class Input {
 
     public void pause() { pause = true; }
     public void clearPause() { pause = false; }
-
-    // FAST GETTERS
 
     public boolean isLeft() { return left; }
     public boolean isRight() { return right; }
@@ -31,7 +27,6 @@ public class Input {
     public boolean isStoppedLR() { return !left & !right; }
     public boolean isStopped() { return !left & !right & !jump; }
 
-    // needed for keyboard input
     private boolean keyboard;
     public void setKeyboard(boolean keyboard) { this.keyboard = keyboard; }
     public boolean isKeyboard() { return keyboard; }

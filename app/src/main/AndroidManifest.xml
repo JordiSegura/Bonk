@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ncs.plataformes">
+    package="com.ncs.BonkJordi">
 
     <application
         android:allowBackup="true"
@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/bonk"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.ncs.plataformes.MainActivity"
+        <activity android:name="com.ncs.BonkJordi.MainActivity"
             android:screenOrientation="landscape"
             android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>

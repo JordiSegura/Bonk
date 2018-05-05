@@ -1,4 +1,4 @@
-package com.ncs.plataformes;
+package com.ncs.BonkJordi;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -16,46 +16,39 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ncs.plataformes.characters.Bonk;
-import com.ncs.plataformes.characters.Box;
-import com.ncs.plataformes.characters.Coin;
-import com.ncs.plataformes.characters.Crab;
-import com.ncs.plataformes.characters.Enemy;
+import com.ncs.BonkJordi.characters.Bonk;
+import com.ncs.BonkJordi.characters.Box;
+import com.ncs.BonkJordi.characters.Coin;
+import com.ncs.BonkJordi.characters.Crab;
+import com.ncs.BonkJordi.characters.Enemy;
 
 public class Scene {
     private GameEngine gameEngine;
     private String scene[];
     private Paint paint;
-
     private int sceneWidth, sceneHeight;
     private SparseIntArray CHARS;
     private String GROUND, WALLS;
     private int WATERLEVEL, SKY, WATERSKY, WATER;
-
     private Bonk bonk;
-
     private List<Coin> coins;
     private List<Enemy> enemies;
     private List<Box> boxes;
-
     int spawnX;
     int spawnY;
-
     int score;
     int lives;
-
     Scene(GameEngine gameEngine) {
         this.gameEngine = gameEngine;
         paint = new Paint();
         CHARS = new SparseIntArray();
         WATERLEVEL = 999;
         score = 0;
-        lives = 3;
+        lives = 5;
         coins = new ArrayList<>();
         enemies = new ArrayList<>();
         boxes = new ArrayList<>();
     }
-
     void loadFromFile(int resource) {
         InputStream res = gameEngine.getContext().getResources().openRawResource(resource);
         BufferedReader reader = new BufferedReader(new InputStreamReader(res));
@@ -137,10 +130,9 @@ public class Scene {
             sceneHeight = scene.length;
             sceneWidth = scene[0].length();
         } catch (IOException e) {
-            Toast.makeText(gameEngine.getContext(), "Error loading scene:" + e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(gameEngine.getContext(), "Error al cargar:" + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
-
     public boolean isGround(int r, int c) {
         if (r < 0) return false;
         if (r >= sceneHeight) return false;
@@ -149,7 +141,6 @@ public class Scene {
         char sc = scene[r].charAt(c);
         return (GROUND.indexOf(sc) != -1);
     }
-
     public boolean isWall(int r, int c) {
         if (r < 0) return false;
         if (r >= sceneHeight) return false;
@@ -189,36 +180,29 @@ public class Scene {
 
     // Scene physics
     void physics(int delta) {
-
         bonk = gameEngine.getBonk();
-
         for (Coin coin : coins) coin.physics(delta);
         for (Enemy enemy : enemies) enemy.physics(delta);
         for (Box box : boxes) box.physics(delta);
-
         Rect bonkRect = bonk.getCollisionRect();
-
         if (bonkRect != null) {
-
             for (int i = coins.size() - 1; i >= 0; i--) {
                 Coin coin = coins.get(i);
                 if (bonkRect.intersect(coin.getCollisionRect())) {
                     gameEngine.getAudio().coin();
                     coins.remove(coin);
                     score += 10;
-                    Log.d("ncs", "Score: " + score);
+                    Log.d("ncs", "Puntuacion: " + score);
                 }
             }
-
             for (Enemy enemy : enemies) {
                 if (bonkRect.intersect(enemy.getCollisionRect())) {
                     gameEngine.getAudio().die();
                     bonk.die();
                     lives--;
-                    Log.d("ncs", "Lives: " + lives);
+                    Log.d("ncs", "Vidas: " + lives);
                 }
             }
-
             for (Box box : boxes) {
                 if (bonkRect.intersect(box.getCollisionRect())) {
                     gameEngine.win();
@@ -230,27 +214,18 @@ public class Scene {
     // Scene draw
     void draw(Canvas canvas, int offsetX, int offsetY, int screenWidth, int screenHeight) {
         if (scene == null) return;
-
-        // Compute which tiles will be drawn
         int l = Math.max(0, offsetX / 16);
         int r = Math.min(scene[0].length(), offsetX / 16 + screenWidth / 16 + 2);
         int t = Math.max(0, offsetY / 16);
         int b = Math.min(scene.length, offsetY / 16 + screenHeight / 16 + 2);
-
-        // Do the x-y loops over the visible scene
         for (int y = t; y < b; y++) {
-
-            // Compute the background index (sky / water)
             int bgIdx = SKY;
             if (y == WATERLEVEL) bgIdx = WATERSKY;
             else if (y > WATERLEVEL) bgIdx = WATER;
             Bitmap bgBitmap = gameEngine.getBitmap(bgIdx);
 
             for (int x = l; x < r; x++) {
-                // Draw the background tile
                 canvas.drawBitmap(bgBitmap, x * 16, y * 16, paint);
-
-                // Compute the bitmap index for the current tile
                 char c = scene[y].charAt(x);
                 int index = CHARS.get(c);
                 if (index == SKY) continue;

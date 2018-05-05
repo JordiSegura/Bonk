@@ -1,4 +1,4 @@
-package com.ncs.plataformes;
+package com.ncs.BonkJordi;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,28 +11,24 @@ import java.io.InputStreamReader;
 
 class BitmapSet {
 
-    private Bitmap[] bitmaps;       // all the bitmaps will be held here
+    private Bitmap[] bitmaps;
 
     Bitmap getBitmap(int index) {
         return bitmaps[index];
     }
 
     BitmapSet(Context context) {
-        // Load the sprites and tiles from res/raw/bonk.png
         BitmapFactory.Options opts = new BitmapFactory.Options();
         opts.inScaled = false;
-        Bitmap bitmapsBMP = BitmapFactory.decodeResource(context.getResources(), R.raw.bonk, opts);
-        // Prepping the transformations for image rotation
-        Matrix rot1 = new Matrix();     // no-rotation
+        Bitmap bitmapsBMP = BitmapFactory.decodeResource(context.getResources(), com.ncs.BonkJordi.R.raw.bonk, opts);
+        Matrix rot1 = new Matrix();
         Matrix rot2 = new Matrix();
-        rot2.setScale(-1, 1);    // flip horizontal
+        rot2.setScale(-1, 1);
 
-        // Load the sprite's and tile's definition file
-        InputStream in = context.getResources().openRawResource(R.raw.bonkinfo);
+        InputStream in = context.getResources().openRawResource(com.ncs.BonkJordi.R.raw.bonkinfo);
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         String line;
         try {
-            // Search the maximum ID from the file. Needed to know the size of the array
             int count = 0;
             while ((line = reader.readLine()) != null) {
                 String parts[] = line.split(":");
@@ -41,7 +37,6 @@ class BitmapSet {
                 count = (id > count) ? id : count;
             }
             bitmaps = new Bitmap[count + 1];
-            // Reset the stream to re-read the file
             in.reset();
             while ((line = reader.readLine()) != null) {
                 String parts[] = line.split(":");
@@ -53,14 +48,12 @@ class BitmapSet {
                 int h = Integer.parseInt(parts[4]);
                 int r = Integer.parseInt(parts[5]);
                 Matrix m = (r == 1) ? rot2 : rot1;
-                // Get the portion of the original Bitmap and store it in the array
                 Bitmap bitmap = Bitmap.createBitmap(bitmapsBMP, x, y, w, h, m, true);
                 bitmaps[id] = bitmap;
             }
             reader.close();
         } catch (Exception ignored) {
         }
-        // Release the resources of the original Bitmap. It's needed no more in the app
         bitmapsBMP.recycle();
     }
 }

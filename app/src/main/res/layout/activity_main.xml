@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ncs.plataformes.MainActivity">
+    tools:context="com.ncs.BonkJordi.MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -15,7 +15,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.ncs.plataformes.GameView
+    <com.ncs.BonkJordi.GameView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -1,10 +1,10 @@
-package com.ncs.plataformes.characters;
+package com.ncs.BonkJordi.characters;
 
 import android.graphics.Rect;
 
-import com.ncs.plataformes.GameEngine;
-import com.ncs.plataformes.Input;
-import com.ncs.plataformes.Scene;
+import com.ncs.BonkJordi.GameEngine;
+import com.ncs.BonkJordi.Input;
+import com.ncs.BonkJordi.Scene;
 
 public class Bonk extends Character {
 

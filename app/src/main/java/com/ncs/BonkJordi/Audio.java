@@ -1,4 +1,4 @@
-package com.ncs.plataformes;
+package com.ncs.BonkJordi;
 
 import android.content.Context;
 import android.media.AudioManager;
@@ -7,14 +7,14 @@ import android.media.SoundPool;
 
 class Audio {
 
-    private MediaPlayer mediaPlayer;    // media player for background music
-    private SoundPool soundPool;        // sound pool for sound effects
-    private int[] fx;                   // sound effects holder
-    private static final int[] fxRes = {R.raw.coin, R.raw.die, R.raw.pause};
+    private MediaPlayer mediaPlayer;
+    private SoundPool soundPool;
+    private int[] fx;
+    private static final int[] fxRes = {com.ncs.BonkJordi.R.raw.coin, com.ncs.BonkJordi.R.raw.die, com.ncs.BonkJordi.R.raw.pause};
 
     Audio(Context context) {
         // Prepping the media player
-        mediaPlayer = MediaPlayer.create(context, R.raw.music);
+        mediaPlayer = MediaPlayer.create(context, com.ncs.BonkJordi.R.raw.music);
         mediaPlayer.setLooping(true);
         mediaPlayer.setVolume(0.25f, 0.25f);
 

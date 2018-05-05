@@ -1,4 +1,4 @@
-package com.ncs.plataformes;
+package com.ncs.BonkJordi;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

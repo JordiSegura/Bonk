@@ -1,6 +1,6 @@
-package com.ncs.plataformes.characters;
+package com.ncs.BonkJordi.characters;
 
-import com.ncs.plataformes.GameEngine;
+import com.ncs.BonkJordi.GameEngine;
 
 public class Coin extends Character {
 

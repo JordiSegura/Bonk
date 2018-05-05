@@ -1,8 +1,8 @@
-package com.ncs.plataformes.characters;
+package com.ncs.BonkJordi.characters;
 
 import android.graphics.Canvas;
 
-import com.ncs.plataformes.GameEngine;
+import com.ncs.BonkJordi.GameEngine;
 
 public class Box extends Character {
 

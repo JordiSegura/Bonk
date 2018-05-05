@@ -1,4 +1,4 @@
-package com.ncs.plataformes;
+package com.ncs.BonkJordi;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
